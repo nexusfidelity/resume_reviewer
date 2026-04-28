@@ -20,9 +20,10 @@ reader = easyocr.Reader(['en'])
 llm = Ollama(
     # model="llama3.2:1b",
     model="llama3:8b",
+    # model="deepseek-r1:1.5b",
     request_timeout=120.0,
     # Manually set the context window to limit memory usage
-    context_window=8000,
+    context_window=2048,
 )
 
 st.set_page_config(layout="wide")
@@ -33,7 +34,7 @@ with col1:
     st.header("Job Posting")
     job_posting = st.text_area(
     "Job posting text",
-    """Position: Data Engineer (Databricks Unified Data Analytics Platform)
+    """Data Engineer (Databricks Unified Data Analytics Platform)
     
     Shift Schedule: Mid Shift (2PM – 12AM)
     
@@ -90,7 +91,7 @@ with col1:
     SQL
     Azure Data Factory""",
     
-    height="content"
+    height="stretch"
     
     )
 
@@ -124,10 +125,31 @@ with col3:
         
         for x, candidate_data in enumerate(st.session_state['key']):
         
-            prompt="i have this job posting: " + job_posting + "\nand i have this resume: " + candidate_data + "\nhow qualified is the candidate? rate from 0 to 100. [output only the percentage rating and 1 paragraph reasoning to hire or not to hire]"
-            #reasons why you should get this person or not
-    
+            prompt = f"""
+            job posting:
+            {job_posting}
+            
+            candidate:
+            {candidate_data}
+            
+            Output:
+            - output only 0-100% why the candidate is fit for the job posting. no reasoning or explanation needed!
+            """
+            
+            prompt_2 = f"""
+            job posting:
+            {job_posting}
+            
+            candidate:
+            {candidate_data}
+            
+            Output:
+            - decide whether to hire or not to hire this candidate according to the information. output only 3 one liner points as to why
+            """
+            
             resp = llm.complete(prompt)
-            st.subheader("candidate "+ str(x))
+            resp2 = llm.complete(prompt_2)
+            st.subheader("candidate "+ str(x+1))
             st.write(resp.text)
+            st.write(resp2.text)
     

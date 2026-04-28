@@ -1,0 +1,63 @@
+job posting:
+Data Engineer (Databricks Unified Data Analytics Platform)
+    
+Shift Schedule: Mid Shift (2PM – 12AM)
+    
+Work Set up: Hybrid, 2 days per week
+    
+Location: Taguig, Philippines
+    
+Summary:
+    
+As a Data Engineer, you will design, develop, and maintain data solutions that facilitate data generation, collection, and processing. Your typical day will involve creating data pipelines, ensuring data quality, and implementing ETL processes to migrate and deploy data across various systems. You will collaborate with cross-functional teams to enhance data accessibility and usability, contributing to the overall data strategy of the organization.
+    
+Roles & Responsibilities:
+    
+- Expected to be an SME.
+    
+- Collaborate and manage the team to perform.
+    
+- Responsible for team decisions.
+    
+- Engage with multiple teams and contribute on key decisions.
+    
+- Provide solutions to problems for their immediate team and across multiple teams.
+    
+- Develop and optimize data pipelines to ensure efficient data flow and processing.
+    
+- Monitor and troubleshoot data quality issues, implementing corrective actions as necessary.
+    
+- Document data processes and workflows to ensure clarity and compliance with best practices.
+    
+Professional & Technical Skills:
+    
+- Required Skill: Expert proficiency in Databricks Unified Data Analytics Platform.
+    
+- Additional Good To Have Skills: Experience with Python (Programming Language).
+    
+- Strong understanding of data modeling and database design principles.
+    
+- Experience with ETL tools and data integration techniques.
+    
+- Familiarity with cloud platforms and services related to data engineering.
+    
+- Proficient in data warehousing concepts and practices.
+    
+Additional Information:
+    
+- The candidate should have minimum 5 years of experience in Databricks Unified Data Analytics Platform.
+    
+- This position is based at our Manila office.
+    
+Must have and Good to have skills:
+    
+Databricks (Unity Catalog, Delta Live Tables, Auto Loader)
+Python, Pyspark
+SQL
+Azure Data Factory
+            
+candidate:
+Projects Philippine Al Lawyer The Philippine Al lawyer is an LLM chatbot trained knowledge base of Philippines laws_ Its answers are tailored in the context of Philippine law and Supreme court decisions_ Predicting malnutrition_in children below 5_vears_using Artificial Intelligence This study leverages machine learning to predict malnutrition in children under five by analyzing a diverse set of variables, including anthropometric data, socioeconomic factors, dietary habits, and breastfeeding practices from the DOST-FNRI. By accurately classifying malnutrition risks, these models offer a powerful tool for early diagnosis, enabling healthcare providers, policymakers, and community organizations to implement timely; targeted interventions Early predictions allow for effective allocation of resources to areas most in need, ultimately helping to reduce malnutrition's prevalence and its negative impacts on health, productivity, and poverty: Paper Chest X-ray Effusion This project allows us to detect if there is effusion in the chest X-ray: Chest X-ray exams are one of most frequent and cost-effective medical imaging examinations available. However; clinical diagnosis of a chest X-ray can be challenging and sometimes more difficult than diagnosis via chest CT imaging_ Australian Housing Market This Case Study explores the Australian Housing Market and what factors are affecting the of homes in Australia Bike_Sharing This project aims to understand which factors are affecting the usage of a mobile app (bike sharing) at a time of a Bike Buver Prediction Using the Australian dataset for bike buying, this study aims to predict if a certain individual according to his profile will most likely buy a bike_ Case_Study Lending Club This Case Study aims to understand what factors are affecting why applicants are likely to default on their loans_ Case_Study Credit Fraud This Case Study aims to understand what variables are more likely to contribute to a transaction becoming a credit fraud using the the price App day:
+          
+Output:
+- output only 0-100% why the candidate is fit for the job posting. no reasoning or explanation needed!

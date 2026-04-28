@@ -1,0 +1,63 @@
+job posting:
+Data Engineer (Databricks Unified Data Analytics Platform)
+    
+Shift Schedule: Mid Shift (2PM – 12AM)
+    
+Work Set up: Hybrid, 2 days per week
+    
+Location: Taguig, Philippines
+    
+Summary:
+    
+As a Data Engineer, you will design, develop, and maintain data solutions that facilitate data generation, collection, and processing. Your typical day will involve creating data pipelines, ensuring data quality, and implementing ETL processes to migrate and deploy data across various systems. You will collaborate with cross-functional teams to enhance data accessibility and usability, contributing to the overall data strategy of the organization.
+    
+Roles & Responsibilities:
+    
+- Expected to be an SME.
+    
+- Collaborate and manage the team to perform.
+    
+- Responsible for team decisions.
+    
+- Engage with multiple teams and contribute on key decisions.
+    
+- Provide solutions to problems for their immediate team and across multiple teams.
+    
+- Develop and optimize data pipelines to ensure efficient data flow and processing.
+    
+- Monitor and troubleshoot data quality issues, implementing corrective actions as necessary.
+    
+- Document data processes and workflows to ensure clarity and compliance with best practices.
+    
+Professional & Technical Skills:
+    
+- Required Skill: Expert proficiency in Databricks Unified Data Analytics Platform.
+    
+- Additional Good To Have Skills: Experience with Python (Programming Language).
+    
+- Strong understanding of data modeling and database design principles.
+    
+- Experience with ETL tools and data integration techniques.
+    
+- Familiarity with cloud platforms and services related to data engineering.
+    
+- Proficient in data warehousing concepts and practices.
+    
+Additional Information:
+    
+- The candidate should have minimum 5 years of experience in Databricks Unified Data Analytics Platform.
+    
+- This position is based at our Manila office.
+    
+Must have and Good to have skills:
+    
+Databricks (Unity Catalog, Delta Live Tables, Auto Loader)
+Python, Pyspark
+SQL
+Azure Data Factory
+            
+candidate:
+Slope Stability of Alignment 4 in the Shotcrete Area in Binga Dam, Itogon, Benguet Feasibility Studies of Various Existing and Additional Deep Wells in Cavite and Metro Manila Infrastructure Projects (Industrial_Commercial_and Residential) Bathymetric Survey of LNG Multi-Purpose Jetty and Gas Receiving Facility in Batangas City In-situ Testing for Kramer Family's Residence Comprehensive Pre-Development Studies for the Land Development Project in Bulacan and Cagayan Geotechnical Investigation for Provincial Mobile Force Company Building in Mamburao Geotechnical Investigation for the Alignment Road along Zapote River Structural Analysis of Tagaytay Clifton Resort Suites in Alfonso, Cavite Assessment of the Drainage System including Laterals along Sumulong Highway; Marikina Flood and Slope Studies for the Rehabilitation of San Juan River Pre-development Studies of Slope Protection in Calapan River Geotechnical Investigation for the Additional Building in Victory Liner Bus Depot CURO TEKNIKA; INC. (JULY 20, 2020 SEPTEMBER 13, 2021) Customer Service Representative Top-performing agent with a 97% satisfaction handled 5,000+ customer inquiries. Provided customer support for MERALCO applications and outage concerns Logged and escalated customer cases for internal client resolution. TRAINING AND CERTIFICATIONS Performing PV System Testing and Commissioning Energy Efficiency and Conservation Awareness Course: Know and Comply the Requirements of RA 11285 Response Spectrum Analysis Procedure per NSCP 2015 Draw Upl Creating A Career in Traffic Management Design Project Management 101: Run Projects Effectively Lean Six Sigma Yellow Belt EDUCATIONAL BACKGROUND RIZAL TECHNOLOGICAL UNIVERSITY MANDALUYONG CAMPUS Bachelor of Science in Civil Engineering (2014-2019) Scholar: Supreme Student Council and Rizal Provincial Government Leadership Awardee KEYNOTE SPEAKER Trailblazer Nexus: Paving the Way for Your Engineering Journey Polytechnic University of the Philippines Manila (August 2023) KEY SKILLS Software: AutoCAD, Google Earth, QGIS, MyGoogle Maps, STAAD Microsoft Office Applications CapCut and Canva Affiliate Marketer: Klook; Airalo, Bookaway Geotechnical Engineering; Civil Engineering; Geosciences Project Management SalesForce Government Bidding Process and Application City rating; billing; and and
+          
+Output:
+- decide whether to hire or not to hire this candidate according to the information. output only 3 one liner points as to why
