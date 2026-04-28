@@ -8,6 +8,9 @@ import os
 os.environ["FLAGS_use_mkldnn"] = "0"
 os.environ["FLAGS_enable_pir_api"] = "0"
 
+import logging
+logging.getLogger("easyocr").setLevel(logging.ERROR)
+
 resp=None
 
 if 'key' not in st.session_state:
@@ -15,18 +18,39 @@ if 'key' not in st.session_state:
 
 resume_text=[]
 
-reader = easyocr.Reader(['en'])
-
-llm = Ollama(
-    # model="llama3.2:1b",
-    model="llama3:8b",
-    # model="deepseek-r1:1.5b",
-    request_timeout=120.0,
-    # Manually set the context window to limit memory usage
-    context_window=2048,
-)
+reader = easyocr.Reader(['en'], gpu=False)
 
 st.set_page_config(layout="wide")
+
+with st.sidebar:
+    llm_model = st.selectbox(
+    "LLM model",
+    ("llama3.2:1b", "llama3:8b", "deepseek-r1:1.5b"),
+    index = 0
+    )
+    
+    llm = Ollama(
+        model=llm_model,
+        request_timeout=120.0,
+        # Manually set the context window to limit memory usage
+        context_window=2048,
+    )
+    
+    userprompt = st.text_area(
+        "Prompt",
+"""0-25% = very not fit
+
+25-50% = not fit
+
+50-75% = fit
+
+75-100% = very fit
+
+Output:
+- output only 0-100% why the candidate is fit for the job posting AND 3 one liner points as to why.
+        """,
+        height="content"
+        )
 
 col1, col2, col3 = st.columns(3)
 
@@ -102,20 +126,21 @@ with col2:
     )
     
     if st.button("OCR", type="primary"):
-        
-        st.session_state['key'] = []
-        
+        st.session_state['key']=[]
         for file in uploaded_files:
             pages = convert_from_bytes(file.read(), dpi=150)
-
-            for i, page in enumerate(pages, start=1):
-
-                img = np.array(page)
-                text = reader.readtext(img, detail=0)
-                text = " ".join(text)
-                
-            st.session_state['key'].append(text)
             
+            file_texts = []
+            for i, page in enumerate(pages, start=1):
+                
+                img = np.array(page)
+                ocr_text = reader.readtext(img, detail=0)
+                text = " ".join(ocr_text)
+                file_texts.append(text)
+            
+            combined_text = " ".join(file_texts)
+            st.session_state['key'].append(combined_text)
+        
     st.write(st.session_state['key'])
 
 with col3:
@@ -126,30 +151,39 @@ with col3:
         for x, candidate_data in enumerate(st.session_state['key']):
         
             prompt = f"""
-            job posting:
-            {job_posting}
-            
-            candidate:
-            {candidate_data}
-            
-            Output:
-            - output only 0-100% why the candidate is fit for the job posting. no reasoning or explanation needed!
-            """
-            
-            prompt_2 = f"""
-            job posting:
-            {job_posting}
-            
-            candidate:
-            {candidate_data}
-            
-            Output:
-            - decide whether to hire or not to hire this candidate according to the information. output only 3 one liner points as to why
+You are an expert HR recruiter. Evaluate how well the candidate fits the job posting below.
+
+Job posting:
+{job_posting}
+
+Candidate:
+{candidate_data}
+
+Fit bands:
+0–25%   = Very not fit
+25–50%  = Not fit
+50–75%  = Fit
+75–100% = Very fit
+
+Output format (strictly follow this):
+
+Overall fit: [0–100%] — [Very not fit / Not fit / Fit / Very fit]
+
+Key points:
++ [One-liner strength #1]
++ [One-liner strength #2]
+– [One-liner gap or concern]
             """
             
             resp = llm.complete(prompt)
-            resp2 = llm.complete(prompt_2)
+            # resp2 = llm.complete(prompt_2)
             st.subheader("candidate "+ str(x+1))
             st.write(resp.text)
-            st.write(resp2.text)
+            # st.write("""
+            #          0-25% = very not fit
+            #          \n 25-50% = not fit
+            #          \n 50-75% = fit
+            #          \n 75-100% = very fit
+            #          """)
+            # st.write(resp2.text)
     
