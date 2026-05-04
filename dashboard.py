@@ -25,7 +25,7 @@ st.set_page_config(layout="wide")
 with st.sidebar:
     llm_model = st.selectbox(
     "LLM model",
-    ("llama3.2:1b", "llama3:8b", "deepseek-r1:1.5b"),
+    ("llama3.2:1b", "llama3:8b", "gemma:2b","deepseek-r1:1.5b"),
     index = 0
     )
     
@@ -36,90 +36,95 @@ with st.sidebar:
         context_window=2048,
     )
     
-    userprompt = st.text_area(
+    user_prompt = st.text_area(
         "Prompt",
-"""0-25% = very not fit
+"""
+You are an expert HR recruiter. Evaluate how well the candidate fits the job posting below.
+Fit bands:
+0–25%   = Very not fit
+25–50%  = Not fit
+50–75%  = Fit
+75–100% = Very fit
 
-25-50% = not fit
+Output format (strictly follow this):
 
-50-75% = fit
+Overall fit: [0–100%] — [Very not fit / Not fit / Fit / Very fit]
 
-75-100% = very fit
-
-Output:
-- output only 0-100% why the candidate is fit for the job posting AND 3 one liner points as to why.
-        """,
+Key points:
++ [One-liner strength #1]
++ [One-liner strength #2]
+– [One-liner gap or concern]
+""",
         height="content"
         )
+   
+    job_posting = st.text_area(
+   "Job Posting text",
+   """Data Engineer (Databricks Unified Data Analytics Platform)
+   
+   Shift Schedule: Mid Shift (2PM – 12AM)
+   
+   Work Set up: Hybrid, 2 days per week
+   
+   Location: Taguig, Philippines
+   
+   Summary:
+   
+   As a Data Engineer, you will design, develop, and maintain data solutions that facilitate data generation, collection, and processing. Your typical day will involve creating data pipelines, ensuring data quality, and implementing ETL processes to migrate and deploy data across various systems. You will collaborate with cross-functional teams to enhance data accessibility and usability, contributing to the overall data strategy of the organization.
+   
+   Roles & Responsibilities:
+   
+   - Expected to be an SME.
+   
+   - Collaborate and manage the team to perform.
+   
+   - Responsible for team decisions.
+   
+   - Engage with multiple teams and contribute on key decisions.
+   
+   - Provide solutions to problems for their immediate team and across multiple teams.
+   
+   - Develop and optimize data pipelines to ensure efficient data flow and processing.
+   
+   - Monitor and troubleshoot data quality issues, implementing corrective actions as necessary.
+   
+   - Document data processes and workflows to ensure clarity and compliance with best practices.
+   
+   Professional & Technical Skills:
+   
+   - Required Skill: Expert proficiency in Databricks Unified Data Analytics Platform.
+   
+   - Additional Good To Have Skills: Experience with Python (Programming Language).
+   
+   - Strong understanding of data modeling and database design principles.
+   
+   - Experience with ETL tools and data integration techniques.
+   
+   - Familiarity with cloud platforms and services related to data engineering.
+   
+   - Proficient in data warehousing concepts and practices.
+   
+   Additional Information:
+   
+   - The candidate should have minimum 5 years of experience in Databricks Unified Data Analytics Platform.
+   
+   - This position is based at our Manila office.
+   
+   Must have and Good to have skills:
+   
+   Databricks (Unity Catalog, Delta Live Tables, Auto Loader)
+   Python, Pyspark
+   SQL
+   Azure Data Factory""",
+   
+   height="stretch"
+   
+   )
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns([1,2])
+
 
 with col1:
-    st.header("Job Posting")
-    job_posting = st.text_area(
-    "Job posting text",
-    """Data Engineer (Databricks Unified Data Analytics Platform)
-    
-    Shift Schedule: Mid Shift (2PM – 12AM)
-    
-    Work Set up: Hybrid, 2 days per week
-    
-    Location: Taguig, Philippines
-    
-    Summary:
-    
-    As a Data Engineer, you will design, develop, and maintain data solutions that facilitate data generation, collection, and processing. Your typical day will involve creating data pipelines, ensuring data quality, and implementing ETL processes to migrate and deploy data across various systems. You will collaborate with cross-functional teams to enhance data accessibility and usability, contributing to the overall data strategy of the organization.
-    
-    Roles & Responsibilities:
-    
-    - Expected to be an SME.
-    
-    - Collaborate and manage the team to perform.
-    
-    - Responsible for team decisions.
-    
-    - Engage with multiple teams and contribute on key decisions.
-    
-    - Provide solutions to problems for their immediate team and across multiple teams.
-    
-    - Develop and optimize data pipelines to ensure efficient data flow and processing.
-    
-    - Monitor and troubleshoot data quality issues, implementing corrective actions as necessary.
-    
-    - Document data processes and workflows to ensure clarity and compliance with best practices.
-    
-    Professional & Technical Skills:
-    
-    - Required Skill: Expert proficiency in Databricks Unified Data Analytics Platform.
-    
-    - Additional Good To Have Skills: Experience with Python (Programming Language).
-    
-    - Strong understanding of data modeling and database design principles.
-    
-    - Experience with ETL tools and data integration techniques.
-    
-    - Familiarity with cloud platforms and services related to data engineering.
-    
-    - Proficient in data warehousing concepts and practices.
-    
-    Additional Information:
-    
-    - The candidate should have minimum 5 years of experience in Databricks Unified Data Analytics Platform.
-    
-    - This position is based at our Manila office.
-    
-    Must have and Good to have skills:
-    
-    Databricks (Unity Catalog, Delta Live Tables, Auto Loader)
-    Python, Pyspark
-    SQL
-    Azure Data Factory""",
-    
-    height="stretch"
-    
-    )
-
-with col2:
     st.header("Candidates")
     uploaded_files = st.file_uploader(
     "Upload data", accept_multiple_files=True, type="pdf"
@@ -143,7 +148,7 @@ with col2:
         
     st.write(st.session_state['key'])
 
-with col3:
+with col2:
     st.header("Ranking")
     
     if st.button("LLM", type="primary"):
@@ -151,28 +156,13 @@ with col3:
         for x, candidate_data in enumerate(st.session_state['key']):
         
             prompt = f"""
-You are an expert HR recruiter. Evaluate how well the candidate fits the job posting below.
-
 Job posting:
 {job_posting}
 
 Candidate:
 {candidate_data}
 
-Fit bands:
-0–25%   = Very not fit
-25–50%  = Not fit
-50–75%  = Fit
-75–100% = Very fit
-
-Output format (strictly follow this):
-
-Overall fit: [0–100%] — [Very not fit / Not fit / Fit / Very fit]
-
-Key points:
-+ [One-liner strength #1]
-+ [One-liner strength #2]
-– [One-liner gap or concern]
+{user_prompt}
             """
             
             resp = llm.complete(prompt)
