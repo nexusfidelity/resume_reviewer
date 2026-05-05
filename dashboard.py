@@ -18,7 +18,15 @@ if 'key' not in st.session_state:
 
 resume_text=[]
 
-reader = easyocr.Reader(['en'], gpu=False)
+@st.cache_resource
+def get_reader():
+    return easyocr.Reader(['en'], gpu=False)
+
+@st.cache_resource
+def get_llm(model_name):
+    return Ollama(model=model_name, request_timeout=240, context_window=1024) #2048
+
+# reader = easyocr.Reader(['en'], gpu=False)
 
 st.set_page_config(layout="wide")
 
@@ -29,31 +37,50 @@ with st.sidebar:
     index = 0
     )
     
-    llm = Ollama(
-        model=llm_model,
-        request_timeout=120.0,
-        # Manually set the context window to limit memory usage
-        context_window=2048,
-    )
+    llm = get_llm(llm_model)
     
     user_prompt = st.text_area(
         "Prompt",
-"""
-You are an expert HR recruiter. Evaluate how well the candidate fits the job posting below.
+"""You are a senior HR recruiter with 10+ years of experience screening candidates.
+Evaluate how well this candidate fits the job posting below.
+
+When evaluating, consider these specific factors:
+
+HARD FACTORS:
+- Job title alignment: Did they hold a similar or relevant role?
+- Years of experience: Do they meet the minimum requirement?
+- Industry background: Same or adjacent industry?
+- Skills & tools: Exact or near matches to what the job requires?
+- Certifications & licenses: Are mandatory ones present?
+- Education: Does it meet the stated requirement?
+
+SOFT/BEHAVIORAL SIGNALS:
+- Quantified achievements: Do they show numbers, percentages, revenue, team size?
+- Promotion history: Were they promoted within the same company?
+- Tenure: Did they stay long enough to create impact (2+ years typical)?
+- Career progression: Are roles getting bigger and more senior over time?
+- Job hopping: Flag if more than 3 jobs in 3 years
+- Employment gaps: Flag unexplained gaps longer than 6 months
+- Recency: How relevant is their most recent role?
+
+PRESENTATION SIGNALS:
+- Tailoring: Does the CV feel written for this role or is it generic?
+- Clarity: Is it easy to skim and well-structured?
+
 Fit bands:
 0–25%   = Very not fit
 25–50%  = Not fit
 50–75%  = Fit
 75–100% = Very fit
 
-Output format (strictly follow this):
+Output format (strictly follow this, nothing else):
 
 Overall fit: [0–100%] — [Very not fit / Not fit / Fit / Very fit]
 
 Key points:
-+ [One-liner strength #1]
-+ [One-liner strength #2]
-– [One-liner gap or concern]
++ [One-liner strength #1 — cite a specific factor above]
++ [One-liner strength #2 — cite a specific factor above]
+– [One-liner gap or red flag — cite a specific factor above]
 """,
         height="content"
         )
@@ -139,9 +166,10 @@ with col1:
             for i, page in enumerate(pages, start=1):
                 
                 img = np.array(page)
-                ocr_text = reader.readtext(img, detail=0)
+                ocr_text = get_reader().readtext(img, detail=0)
                 text = " ".join(ocr_text)
                 file_texts.append(text)
+                del img, page
             
             combined_text = " ".join(file_texts)
             st.session_state['key'].append(combined_text)
