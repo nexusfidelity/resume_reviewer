@@ -52,7 +52,7 @@ st.set_page_config(layout="wide")
 with st.sidebar:
     llm_model = st.selectbox(
         "LLM model",
-        ("gpt-oss:20b","gpt-oss:120b"),
+        ("gpt-oss:20b","gpt-oss:120b","gemma3:4b-cloud","glm-4.6:cloud","minimax-m2.1:cloud"),
         index=0
     )
 
@@ -94,10 +94,7 @@ Output format (strictly follow this, nothing else):
 
 Overall fit: [0–100%] — [Very not fit / Not fit / Fit / Very fit]
 
-Key points:
-+ [One-liner strength #1]
-+ [One-liner strength #2]
-– [One-liner gap or red flag]
+provide bullet points as to why it is within the fitband based on the score
 """,
         height=400
     )
