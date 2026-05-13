@@ -159,14 +159,14 @@ with col2:
         for idx, candidate_data in enumerate(st.session_state['candidates']):
 
             prompt = f"""
-Job posting:
-{job_posting}
-
-Candidate:
-{candidate_data}
-
-{user_prompt}
-"""
+                    Job posting:
+                    {job_posting}
+                    
+                    Candidate:
+                    {candidate_data}
+                    
+                    {user_prompt}
+                    """
 
             st.subheader(f"Candidate {idx + 1}")
 
