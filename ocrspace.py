@@ -1,6 +1,7 @@
 import re
 import streamlit as st
 from pdf2image import convert_from_bytes
+import numpy as np
 import easyocr
 
 import requests
@@ -20,6 +21,7 @@ os.environ["FLAGS_enable_pir_api"] = "0"
 os.environ.get("OLLAMA_API_KEY")
 
 logging.getLogger("easyocr").setLevel(logging.ERROR)
+
 
 # ----------------------
 # CACHED RESOURCES
